@@ -7,5 +7,9 @@ class Item:
         self.__id = id_
         self.__name = name
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"ID: {self.__id}, Name: {self.__name}"
+
+    @property
+    def name(self) -> str:
+        return self.__name

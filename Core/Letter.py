@@ -1,8 +1,11 @@
 from __future__ import annotations
+
+import re
 from datetime import datetime
 from typing import List
 
-from Core import Item
+from Core.Item import Item
+from Core.BehaviorEnum import BehaviorEnum
 from Core.Child import Child
 
 
@@ -35,7 +38,43 @@ class Letter:
         """
         return f"Child: {self.__child}\nDate: {self.__date}, Items: {[str(item) for item in self.__items]}"
 
-    # @classmethod
-    # def parse_text(cls, text: str) -> Letter:
-    #
-    #     pass
+    @classmethod
+    def parse_text(cls, text: List[str]) -> Letter:
+        """
+        Filling data from a letter file
+        :param text: List of each line in a letter read from a file
+        :return: Letter instance with parsed data
+        """
+        # Matching `I am [FULL_NAME]`
+        name_pattern = re.compile(r"(I am )([A-Za-z ]+)")
+
+        # Taking the second group which include characters and spaces from the first line
+        fullname = name_pattern.match(text[0]).group(2)
+
+        # Matching `I am [AGE] years old. I live at [ADDRESS]. I have been a very [BEHAVIOR] child this year`
+        info_pattern = re.compile(r"(I am )([0-9]+)( years old. I live at )([A-Za-z0-9-., ]+)"
+                                  r"(. I have been a very )([A-Za-z]+)( child this year)")
+
+        # Interested only in second, fourth and sixth groups
+        info_result = info_pattern.match(text[1])
+        age, address, behavior = info_result.group(2), info_result.group(4), info_result.group(6)
+
+        # converting string to enum
+        behavior_enum = BehaviorEnum.Good if behavior == "good" else BehaviorEnum.Bad
+
+        items = [Item(idx, item) for (idx, item) in enumerate(text[3].split(','))]
+        child = Child(0, fullname, datetime.now().year - int(age), address, behavior_enum)
+
+        return cls(child, datetime.now(), items)
+
+    @property
+    def child(self) -> Child:
+        return self.__child
+
+    @property
+    def items(self) -> List[Item]:
+        return self.__items
+
+    @property
+    def items_str(self) -> str:
+        return ",".join([item.name for item in self.__items])
