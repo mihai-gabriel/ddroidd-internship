@@ -53,11 +53,10 @@ class SantaClaus:
 
             # setting items id
             for item in letter.items:
-                if item.name in self._items:
-                    item.id = self._items.index(item.name)
-                else:
-                    item.id = len(self._items)
+                if item.name not in self._items:
                     self._items.append(item.name)
+
+                item.id = self._items.index(item.name)
 
             # setting child id
             letter.child.id = self._no_children
