@@ -24,11 +24,15 @@ class Child:
 
     def __str__(self):
         return f"ID: {self.__id}, Name: {self.__fullname}, Year of birth: {self.__year_of_birth}, " \
-               f"Address: {self.__address}, Behavior: {self.__behavior}"
+               f"Address: {self.__address}, Behavior: {self.behavior_str}"
 
     @property
     def id(self) -> int:
         return self.__id
+
+    @id.setter
+    def id(self, new_id: int):
+        self.__id = new_id
 
     @property
     def fullname(self) -> str:

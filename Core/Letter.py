@@ -36,7 +36,7 @@ class Letter:
         The display of the letter
         :return: a string representation of the letter
         """
-        return f"Child: {self.__child}\nDate: {self.date}, Items: {[str(item) for item in self.__items]}"
+        return f"Child: {self.__child}\nDate: {self.date}, Items: {[str(item) for item in self.__items]}\n"
 
     @classmethod
     def parse_text(cls, text: List[str]) -> Letter:

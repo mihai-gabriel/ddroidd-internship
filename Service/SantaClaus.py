@@ -12,12 +12,18 @@ class SantaClaus:
     A class to contain all methods to read/write to a file,
     build a report and generate a list of addresses grouped by city
     """
+    # type annotations
     __name: str
     _instance: SantaClaus
     _base_path: str
+    _items: List[str]
+    _no_children: int
 
+    # class fields
     _instance = None
     _base_path = "./Letters/generated"
+    _items = []
+    _no_children = 0
 
     def __new__(cls):
         """
@@ -36,7 +42,21 @@ class SantaClaus:
         """ Method to read from a file and return a Letter instance """
         with open(filename, 'r') as f:
             next(f)  # ignore first line
-            return Letter.parse_text(f.readlines())
+            letter = Letter.parse_text(f.readlines())
+
+            # setting items id
+            for item in letter.items:
+                if item.name in self._items:
+                    item.id = self._items.index(item.name)
+                else:
+                    item.id = len(self._items)
+                    self._items.append(item.name)
+
+            # setting child id
+            letter.child.id = self._no_children
+            self._no_children += 1
+
+            return letter
 
     def write_letter(self, letter: Letter):
         """ Writing a letter file from an instance of a Letter using given template """
