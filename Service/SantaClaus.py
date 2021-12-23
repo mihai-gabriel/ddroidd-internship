@@ -21,9 +21,6 @@ class SantaClaus:
 
     # class fields
     _instance = None
-    _base_path = "./Letters/generated"
-    _items = []
-    _no_children = 0
 
     def __new__(cls):
         """
@@ -37,6 +34,9 @@ class SantaClaus:
 
     def __init__(self):
         self.__name = "Santa Claus"
+        self._base_path = "./Letters/generated"
+        self._items = []
+        self._no_children = 0
 
     def read_letter(self, filename) -> Letter:
         """ Method to read from a file and return a Letter instance """
