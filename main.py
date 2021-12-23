@@ -23,22 +23,22 @@ def question1():
     """
     print("Question 1. Constructing objects")
 
-    child1 = Child(0, "Tudor Tudorescu", 2012, "Str. Primaverii, Cluj-Napoca", BehaviorEnum.Good)
+    child1 = Child(0, "Tudor Tudorescu", 2012, "Str. Primaverii Nr. 21, Cluj-Napoca", BehaviorEnum.Good)
     letter1 = Letter(child1, datetime.now(), [Item(0, "Trenulet"), Item(1, "Robot")])
-    print(f"{letter1}")
+    print(letter1)
 
-    child2 = Child(1, "Ion Vasile", 2009, "Str. Mihai Eminescu, Bucuresti", BehaviorEnum.Good)
+    child2 = Child(1, "Ion Vasile", 2009, "Str. Mihai Eminescu Nr. 15, Bucuresti", BehaviorEnum.Good)
     letter2 = Letter(child2, datetime.now(), [Item(1, "Robot"), Item(2, "Papusa")])
-    print(f"{letter2}")
+    print(letter2)
 
-    child3 = Child(2, "Andrei Tanase", 2010, "Str. 6 Noiembrie, Suceava", BehaviorEnum.Bad)
+    child3 = Child(2, "Andrei Tanase", 2010, "Str. 6 Noiembrie Nr. 10, Cluj-Napoca", BehaviorEnum.Bad)
     letter3 = Letter(child3, datetime.now(), [Item(3, "Acadea"), Item(1, "Robot")])
-    print(f"{letter3}")
+    print(letter3)
 
 
 def question2():
     """
-    2. Reading letters using the Santa Claus service,
+    Reading letters using the Santa Claus service,
     populating letter instances (containing Child instances)
     and printing them to the console
     """
@@ -53,19 +53,19 @@ def question2():
 
 def question3():
     """
-    3. Generating letter files from objects
+    Generating letter files from objects
     """
     print("\nQuestion 3. Generate files")
 
     santa_service = SantaClaus()
 
-    child1 = Child(0, "Tudor Tudorescu", 2012, "Str. Primaverii, Cluj-Napoca", BehaviorEnum.Good)
+    child1 = Child(0, "Tudor Tudorescu", 2012, "Str. Primaverii Nr. 21, Cluj-Napoca", BehaviorEnum.Good)
     letter1 = Letter(child1, datetime.now(), [Item(0, "Trenulet"), Item(1, "Robot")])
 
-    child2 = Child(1, "Ion Vasile", 2009, "Str. Mihai Eminescu, Bucuresti", BehaviorEnum.Good)
+    child2 = Child(1, "Ion Vasile", 2009, "Str. Mihai Eminescu Nr. 15, Bucuresti", BehaviorEnum.Good)
     letter2 = Letter(child2, datetime.now(), [Item(1, "Robot"), Item(2, "Papusa")])
 
-    child3 = Child(2, "Andrei Tanase", 2010, "Str. 6 Noiembrie, Suceava", BehaviorEnum.Bad)
+    child3 = Child(2, "Andrei Tanase", 2010, "Str. 6 Noiembrie Nr. 10, Cluj-Napoca", BehaviorEnum.Bad)
     letter3 = Letter(child3, datetime.now(), [Item(3, "Acadea"), Item(1, "Robot")])
 
     for letter in [letter1, letter2, letter3]:
@@ -76,7 +76,7 @@ def question3():
 
 def question4():
     """
-    4. Report of the quantity of each toy the elves need to build
+    Report of the quantity of each toy the elves need to build
     """
     print("\nQuestion 4. Building report")
     santa_service = SantaClaus()
@@ -89,24 +89,35 @@ def question4():
 def question5():
     """
     Given the fact that I used `SantaClaus()` as a service,
-    I only need to instantiate it once and use multiple times,
-    so redudant re-creation does not take place.
+    I only need to instantiate it once and use multiple times across all question solutions,
+    so redundant re-creation does not take place, acting as a lazy loading.
 
     As a consequence, the Singleton Pattern is favorable
     and I already implemented it. I will leave a quick test
-    :return:
     """
     print("\nQuestion 5. Singleton Pattern")
 
     santa_service1 = SantaClaus()
     santa_service2 = SantaClaus()
 
-    assert(santa_service1 is santa_service2)  # Note `is` operator check if the object is the same in memory
+    assert (santa_service1 is santa_service2)  # Note `is` operator checks if the object is the same in memory
     print(f"Is SantaClaus service a Singleton class? {santa_service1 is santa_service2}")
 
 
 def question6():
-    pass
+    """
+    Travel Itinerary.
+    Grouping all addresses by city.
+    Since the address format that I used is something like '<Street Name> <Number>, <City Name>',
+    I will parse the <City Name> according to this format.
+    """
+    print("\nQuestion 6. Grouping addresses by city")
+
+    santa_service = SantaClaus()
+    all_addresses: dict = santa_service.travel_itinerary()
+
+    for city, addresses in all_addresses.items():
+        print(f"{city}: {addresses}")
 
 
 if __name__ == '__main__':

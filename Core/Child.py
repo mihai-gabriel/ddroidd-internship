@@ -39,6 +39,15 @@ class Child:
         return self.__address
 
     @property
+    def city(self):
+        """
+        Parsing city name from address format '<Street Name> <Number>, <City Name>'
+        Any other type of format would potentially require the use of regular expression,
+        since I won't use here due to the simplicity of the format.
+        """
+        return self.__address.split(',')[-1].strip()
+
+    @property
     def behavior(self) -> BehaviorEnum:
         return self.__behavior
 

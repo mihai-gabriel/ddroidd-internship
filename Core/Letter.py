@@ -36,7 +36,7 @@ class Letter:
         The display of the letter
         :return: a string representation of the letter
         """
-        return f"Child: {self.__child}\nDate: {self.__date}, Items: {[str(item) for item in self.__items]}"
+        return f"Child: {self.__child}\nDate: {self.date}, Items: {[str(item) for item in self.__items]}"
 
     @classmethod
     def parse_text(cls, text: List[str]) -> Letter:
@@ -62,7 +62,7 @@ class Letter:
         # converting string to enum
         behavior_enum = BehaviorEnum.Good if behavior == "good" else BehaviorEnum.Bad
 
-        items = [Item(idx, item) for (idx, item) in enumerate(text[3].split(','))]
+        items = [Item(0, item_name) for item_name in text[3].split(',')]
         child = Child(0, fullname, datetime.now().year - int(age), address, behavior_enum)
 
         return cls(child, datetime.now(), items)
@@ -70,6 +70,10 @@ class Letter:
     @property
     def child(self) -> Child:
         return self.__child
+
+    @property
+    def date(self):
+        return self.__date.strftime("%Y-%m-%d")
 
     @property
     def items(self) -> List[Item]:

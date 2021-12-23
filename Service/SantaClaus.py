@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import List
 
 from Core.Letter import Letter
@@ -64,5 +64,20 @@ class SantaClaus:
                     items.append(item)
 
         report = Counter(items)
-
         return dict(report.most_common())  # returning in descending order by quantity
+
+    def travel_itinerary(self) -> dict:
+        """
+        Grouping addresses by city using a dictionary,
+        each key will be a city and each value will be a list of addresses
+
+        :return: all addresses grouped by city
+        """
+        itinerary: dict = defaultdict(list)
+
+        # fetching all addresses from the letters
+        for filename in os.listdir(path=self._base_path):
+            letter: Letter = self.read_letter(os.path.join(self._base_path, filename))
+            itinerary[letter.child.city].append(letter.child.address)
+
+        return itinerary
