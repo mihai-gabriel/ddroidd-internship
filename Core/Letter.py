@@ -36,7 +36,7 @@ class Letter:
         The display of the letter
         :return: a string representation of the letter
         """
-        return f"Child: {self.__child}\nDate: {self.date}, Items: {[str(item) for item in self.__items]}\n"
+        return f"Child: {self.__child}\nCreation Date: {self.date_str}, Items: {[str(item) for item in self.__items]}\n"
 
     @classmethod
     def parse_text(cls, text: List[str]) -> Letter:
@@ -72,8 +72,16 @@ class Letter:
         return self.__child
 
     @property
-    def date(self):
+    def date_str(self) -> str:
         return self.__date.strftime("%Y-%m-%d")
+
+    @property
+    def date(self) -> datetime:
+        return self.__date
+
+    @date.setter
+    def date(self, new_date: datetime):
+        self.__date = new_date
 
     @property
     def items(self) -> List[Item]:

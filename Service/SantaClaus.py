@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import os
+import platform
 from collections import Counter, defaultdict
+from datetime import datetime
 from typing import List
 
 from Core.BehaviorEnum import BehaviorEnum
@@ -44,6 +46,10 @@ class SantaClaus:
         with open(filename, 'r') as f:
             next(f)  # ignore first line
             letter = Letter.parse_text(f.readlines())
+
+            # Only on Windows, getting creation date
+            if platform.system() == "Windows":
+                letter.date = datetime.fromtimestamp(os.path.getctime(filename))
 
             # setting items id
             for item in letter.items:
