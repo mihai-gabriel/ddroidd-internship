@@ -43,19 +43,19 @@ def question2():
     and printing them to the console
     """
     print("\nQuestion 2. Reading letters")
-    santa_service = SantaClaus()
+    santa_service = SantaClaus()  # constructor uses the Singleton Pattern
 
     # Reading letter-0.txt through letter-2.txt
     for idx in range(0, 3):
-        letter = santa_service.read_letter(f"Letters/manual/letter-{idx}.txt")
+        letter: Letter = santa_service.read_letter(f"Letters/manual/letter-{idx}.txt")
         print(letter)
 
 
 def question3():
     """
-    3. Generating letter files
+    3. Generating letter files from objects
     """
-    print("\nQuestion 3")
+    print("\nQuestion 3. Generate files")
 
     santa_service = SantaClaus()
 
@@ -75,11 +75,34 @@ def question3():
 
 
 def question4():
-    pass
+    """
+    4. Report of the quantity of each toy the elves need to build
+    """
+    print("\nQuestion 4. Building report")
+    santa_service = SantaClaus()
+    report: dict = santa_service.build_report()
+
+    for toy_name, quantity in report.items():
+        print(f"{toy_name} - {quantity}")
 
 
 def question5():
-    pass
+    """
+    Given the fact that I used `SantaClaus()` as a service,
+    I only need to instantiate it once and use multiple times,
+    so redudant re-creation does not take place.
+
+    As a consequence, the Singleton Pattern is favorable
+    and I already implemented it. I will leave a quick test
+    :return:
+    """
+    print("\nQuestion 5. Singleton Pattern")
+
+    santa_service1 = SantaClaus()
+    santa_service2 = SantaClaus()
+
+    assert(santa_service1 is santa_service2)  # Note `is` operator check if the object is the same in memory
+    print(f"Is SantaClaus service a Singleton class? {santa_service1 is santa_service2}")
 
 
 def question6():

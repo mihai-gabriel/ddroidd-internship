@@ -27,7 +27,7 @@ class Child:
                f"Address: {self.__address}, Behavior: {self.__behavior}"
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self.__id
 
     @property
@@ -43,7 +43,7 @@ class Child:
         return self.__behavior
 
     @property
-    def behavior_str(self):
+    def behavior_str(self) -> str:
         """ Convenient way of storing the enum """
         return "good" if self.__behavior is BehaviorEnum.Good else "bad"
 
