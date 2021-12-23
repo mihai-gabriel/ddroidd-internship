@@ -68,7 +68,10 @@ def question3():
     child3 = Child(2, "Andrei Tanase", 2010, "Str. 6 Noiembrie Nr. 10, Cluj-Napoca", BehaviorEnum.Bad)
     letter3 = Letter(child3, datetime.now(), [Item(3, "Acadea"), Item(1, "Robot")])
 
-    for letter in [letter1, letter2, letter3]:
+    child4 = Child(3, "Ion Popescu", 2014, "Str. Unirii Nr. 10, Cluj-Napoca", BehaviorEnum.Good)
+    letter4 = Letter(child4, datetime.now(), [Item(3, "Acadea"), Item(2, "Papusa")])
+
+    for letter in [letter1, letter2, letter3, letter4]:
         santa_service.write_letter(letter)
 
     print("Letters generated!")
@@ -76,9 +79,10 @@ def question3():
 
 def question4():
     """
-    Report of the quantity of each toy the elves need to build
+    Report of the quantity of each toy the elves need to build.
+    Taking into consideration only letters from good behaving children.
     """
-    print("\nQuestion 4. Building report")
+    print("\nQuestion 4. Building report - only for good children")
     santa_service = SantaClaus()
     report: dict = santa_service.build_report()
 
@@ -111,7 +115,7 @@ def question6():
     Since the address format that I used is something like '<Street Name> <Number>, <City Name>',
     I will parse the <City Name> according to this format.
     """
-    print("\nQuestion 6. Grouping addresses by city")
+    print("\nQuestion 6. Grouping addresses by city - Santa needs to visit good behaving children")
 
     santa_service = SantaClaus()
     all_addresses: dict = santa_service.travel_itinerary()

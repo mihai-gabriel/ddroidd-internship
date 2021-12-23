@@ -4,6 +4,7 @@ import os
 from collections import Counter, defaultdict
 from typing import List
 
+from Core.BehaviorEnum import BehaviorEnum
 from Core.Letter import Letter
 
 
@@ -78,10 +79,9 @@ class SantaClaus:
         items: List[str] = []
 
         for filename in os.listdir(path=self._base_path):
-            with open(os.path.join(self._base_path, filename), 'r') as f:
-                line: str = f.readlines()[-1]  # the last line in the file
-                for item in line.split(','):
-                    items.append(item)
+            letter: Letter = self.read_letter(os.path.join(self._base_path, filename))
+            if letter.child.behavior is BehaviorEnum.Good:
+                items.extend([item.name for item in letter.items])
 
         report = Counter(items)
         return dict(report.most_common())  # returning in descending order by quantity
@@ -91,13 +91,14 @@ class SantaClaus:
         Grouping addresses by city using a dictionary,
         each key will be a city and each value will be a list of addresses
 
-        :return: all addresses grouped by city
+        :return: all addresses grouped by city for good behaving children
         """
         itinerary: dict = defaultdict(list)
 
         # fetching all addresses from the letters
         for filename in os.listdir(path=self._base_path):
             letter: Letter = self.read_letter(os.path.join(self._base_path, filename))
-            itinerary[letter.child.city].append(letter.child.address)
+            if letter.child.behavior is BehaviorEnum.Good:
+                itinerary[letter.child.city].append(letter.child.address)
 
         return itinerary
